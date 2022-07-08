@@ -80,7 +80,10 @@ atribute_and_order = {
 	"early-decision": 55,
 	"SAT-in-range": 56,
 	"SAT-at-least": 57,
-	"comp-sci-in-top-5": 58
+	"comp-sci-in-top-5": 58,
+	"diversity-grade": 59,
+	"athletics-grade": 60,
+	"majors-link": 61
 }
 
 
@@ -237,6 +240,88 @@ first_descriptive_college_word = remove_nums(college_words[0])
 second_descriptive_college_word = remove_nums(college_words[1])
 third_descriptive_college_word = remove_nums(college_words[2])
 del college_words
+grades = soup.find_all("li", "ordered__list__bucket__item")
+academics_grade = grades[0].text.replace(
+	"Academicsgrade\xa0", "").replace(" minus", "-")
+value_grade = grades[1].text.replace(
+	"Valuegrade\xa0", "").replace(" minus", "-")
+diversity_grade = grades[2].text.replace(
+	"Diversitygrade\xa0", "").replace(" minus", "-")
+campus_grade = grades[3].text.replace(
+	"Campusgrade\xa0", "").replace(" minus", "-")
+athletics_grade = grades[4].text.replace(
+	"Athleticsgrade\xa0", "").replace(" minus", "-")
+party_scene_grade = grades[5].text.replace(
+	"Party Scenegrade\xa0", "").replace(" minus", "-")
+professors_grade = grades[6].text.replace(
+	"Professorsgrade\xa0", "").replace(" minus", "-")
+location_grade = grades[7].text.replace(
+	"Locationgrade\xa0", "").replace(" minus", "-")
+dorms_grade = grades[8].text.replace(
+	"Dormsgrade\xa0", "").replace(" minus", "-")
+campus_food_grade = grades[9].text.replace(
+	"Campus Foodgrade\xa0", "").replace(" minus", "-")
+student_life_grade = grades[10].text.replace(
+	"Student Lifegrade\xa0", "").replace(" minus", "-")
+safety_grade = grades[11].text.replace(
+	"Safetygrade\xa0", "").replace(" minus","-")
+del grades
+price = soup.find_all("section", "block--two-two")
+for i in price:
+	if "Net Price" in i.text:
+		price = i
+		break
+price = price.contents[1].contents[0].contents[0].contents[0].contents[1]
+price = int(price.contents[0].string[1:].replace(",", ""))
+student_num = soup.find_all("section", "block--two")
+for i in student_num:
+	if "Full-Time Enrollment" in i.text:
+		student_num = i
+		break
+student_num = student_num.contents[1].contents[0].contents[0].contents[0].contents[1]
+student_num = int(student_num.contents[0].string.replace(",", ""))
+comp_sci_student_num = None
+city_size = None
+comp_sci_rank = None
+num_of_reviews = int(soup.find("span", "review__stars__number__reviews").text.replace(" reviews", "").replace(",", ""))
+athletic_division = soup.find_all("div", "profile__bucket--2")
+for i in athletic_division:
+	if "Athletic Division" in i.text:
+		athletic_division = i
+		break
+athletic_division = athletic_division.contents[0].contents[1].contents[1].string
+acceptance_rate = soup.find_all("div", "scalar")
+for i in acceptance_rate:
+	if "Acceptance Rate" in i.text:
+		acceptance_rate = i
+		break
+acceptance_rate = int(acceptance_rate.contents[1].string[:-1])
+sat_range = soup.find_all("div", "scalar--three")
+for i in sat_range:
+	if "SAT Range" in i.text:
+		sat_range = i
+		break
+sat_range = sat_range.contents[1].text.split("-")
+sat_min = int(sat_range[0])
+sat_max = int(sat_range[1])
+application_fee = soup.find_all("div", "scalar--three")
+for i in application_fee:
+	if "Application Fee" in i.text:
+		application_fee = i
+		break
+application_fee = int(application_fee.contents[1].text[1:])
+percent_receiving_aid = soup.find_all("div", "scalar--three")
+for i in percent_receiving_aid:
+	if "Students Receiving Financial Aid" in i.text:
+		percent_receiving_aid = i
+		break
+percent_receiving_aid = int(percent_receiving_aid.contents[1].text[:-1])
+avg_aid = soup.find_all("div", "scalar--three")
+for i in avg_aid:
+	if "Average Total Aid Awarded" in i.text:
+		avg_aid = i
+		break
+avg_aid = int(avg_aid.contents[1].contents[0].text[1:].replace(",", ""))
 
 
 # print("DONE")

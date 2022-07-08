@@ -108,7 +108,7 @@ order:
 "dorms-grade": 22,
 "student-life-grade": 23,
 "price": 24,
-"num-of-students": 25,
+"student-num": 25,
 "num-of-comp-sci-students": 26,
 "city-size?": 27,
 "comp-sci-rank": 28,
@@ -141,5 +141,7 @@ order:
 "early-decision": 55,
 "SAT-in-range": 56,
 "SAT-at-least": 57,
-"comp-sci-in-top-5": 58
-
+"comp-sci-in-top-5": 58,
+"diversity-grade": 59
+athletics
+majors-link
